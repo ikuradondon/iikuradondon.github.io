@@ -1,14 +1,12 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メモ</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="appele=touch-icon.png">
-    <link rel="icon" type="image/png" href="icon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="/manifest.json">
-<script src="jquery-3.3.1.min.js"></script>
-    <style>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+	<title>クイズゲーム</title>
+    <script src="mobile/jquery-1.12.4.min.js"></script>
+    <script src="mobile/jquery.mobile-1.4.5.min.js"></script>
+       <style>
         body{
             background-color: #f5e8ff;
         }
@@ -28,33 +26,93 @@
             }
         }
     </style>
-</head>
+	<script>
+	//問題の設定
+	var q = [];
+	q[0] =["今日の天気は？","雨","飴","編め",2];
+	q[1] =["HTMLは何という言葉の略ですか？","Hyperlinks and Text Markup Language","Home Tool Markup Language",
+	"Hyper Text Markup Language",3];
+	q[2] =["WEB標準の規格を定めているのはどこでしょうか？","Mozilla","Google","The World Wide Web Consortium",
+	3];
 
-<body>
+	var count = 0;
+	var hit = 0; //正解の管理
 
-<form action="" id="form">
-	<textarea  id="memo" cols="30" rows="10"></textarea>
-	<div>
-		<input id="save" type="button" value="保存">
-		<input id="dele" type="button" value="消去">
-	</div>
-</form>
+var init=function(){
+count=0;
+hit=0;
 
-<script>
-	var memo = localStorage.getItem("memodeta");
-	$("#memo").val(memo);
-	
-	$("#save").click(function(){
-	memo = $("#memo").val();
-	localStorage.setItem("memodeta",memo);
-	});
-	
-	$('#dele').click(function(){
-		$('#memo').val('');
-		localStorage.clear();
-	});
-		
-	
+document.getElementById('gamePlay').style = "display:block";
+document.getElementById('gameEnd').style = "display:none";
+
+question(count);
+}
+
+var question =function(num){
+	var mondai = document.getElementById('mondai');
+	var sentaku = document.getElementById('sentaku');
+
+	while (sentaku.firstChild) {
+		sentaku.removeChild(sentaku.firstChild);
+	}
+
+	mondai.textContent = q[num][0];	 
+
+	for(i=1;i<=3;i++){
+		toi1 = document.createElement('li');
+		toi1.innerHTML += '<a href="javascript:answer('+i+')">'+q[num][i]+'</a>';
+		sentaku.appendChild(toi1);
+	}
+}
+
+//正解数の管理
+var answer = function(num) {
+
+	if (num == q[count][4]) {
+		hit++;
+	}
+//回答数
+count++;
+
+	if(count == q.length){
+		endScene();
+	}else{
+		question(count);
+	}
+
+}
+
+endScene = function(){
+document.getElementById('gamePlay').style = "display:none";
+document.getElementById('gameEnd').style = "display:block";
+
+document.getElementById('score').textContent = "正解率:"+Math.floor(hit/q.length*100)+"%";
+document.getElementById('outline').textContent = q.length+"問中、正解は "+hit+"問でした";
+
+detail =document.getElementById('detail');
+}
+
+//これで実行
+window.addEventListener('load',init);
 </script>
+    
+</head>
+<body>
+<div id="gamePlay">
+	<h1>クイズ</h1>
+	<div id="mondai"></div>
+	<div id="kaito">
+	<ul id="sentaku"></ul>
+	</div>
+</div>
+
+<div id="gameEnd">
+	<h1>結果発表</h1>
+	<div id="score"></div>
+	<div id="outline"></div>
+	<div id="detail"></div>
+	<div><a href="javascript:init();">もう一度ゲームを行う</a></div>
+</div>
+
 </body>
 </html>
