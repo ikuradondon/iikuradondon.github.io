@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-	<title>クイズゲーム</title>
-    <script src="mobile/jquery-1.12.4.min.js"></script>
-    <script src="mobile/jquery.mobile-1.4.5.min.js"></script>
-       <style>
+    <meta charset="UTF-8">
+    <title>問題１</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <style>
         body{
-            background-color: #f5e8ff;
+            background-color: darkturquoise;
         }
         
         @media screen and (max-width:480px){
             body{
-                background-color: #ffebe4;
+                background-color: deepskyblue;
             }
             textarea{
                 width: 90%;
@@ -26,94 +24,31 @@
             }
         }
     </style>
-	<script>
-        
-	//問題の設定
-	var q = [];
-	q[0] =["これは何？","雨","飴","編め",1];
-	q[1] =["これは何？","Hyperlinks and Text Markup Language","Home Tool Markup Language","Hyper Text Markup Language",3];
-	q[2] =["これは何？","Mozilla","Google","The World Wide Web Consortium",3];
-        
-	var count = 0;
-	var hit = 0; //正解の管理
-
-var init=function(){
-count=0;
-hit=0;
-
-document.getElementById('gamePlay').style = "display:block";
-document.getElementById('gameEnd').style = "display:none";
-
-question(count);
-}
-
-var question =function(num){
-	var mondai = document.getElementById('mondai');
-	var sentaku = document.getElementById('sentaku');
-
-	while (sentaku.firstChild) {
-		sentaku.removeChild(sentaku.firstChild);
-	}
-
-	mondai.textContent = q[num][0];	 
-
-	for(i=1;i<=3;i++){
-		toi1 = document.createElement('li');
-		toi1.innerHTML += '<a href="javascript:answer('+i+')">'+q[num][i]+'</a>';
-		sentaku.appendChild(toi1);
-	}
-}
-
-//正解数の管理
-var answer = function(num) {
-
-	if (num == q[count][4]) {
-		hit++;
-	}
-//回答数
-count++;
-
-	if(count == q.length){
-		endScene();
-	}else{
-		question(count);
-	}
-
-}
-
-endScene = function(){
-document.getElementById('gamePlay').style = "display:none";
-document.getElementById('gameEnd').style = "display:block";
-
-document.getElementById('score').textContent = "正解率:"+Math.floor(hit/q.length*100)+"%";
-document.getElementById('outline').textContent = q.length+"問中、正解は "+hit+"問でした";
-
-detail =document.getElementById('detail');
-}
-
-//これで実行
-window.addEventListener('load',init);
-</script>
-    
 </head>
 <body>
-<div id="gamePlay">
-    
-	<h1>クイズ</h1>
-	<div id="mondai1"></div>
-    <div id="kaito">  
-	<ul id="sentaku"></ul>
+<center>  
+<div id="page1">
+    <h1>問題１：これは何？</h1>
+    <img src="giphy.gif">
+    <div><a href="#" onclick="seikai()">ピザ</a></div>
+    <div><a href="#" onclick="machigai()">ハート</a></div>
+</div>
+</center>
+    <script>
         
-	</div>
-</div>
+        
+        var hit=0;
 
-<div id="gameEnd">
-	<h1>結果発表</h1>
-	<div id="score"></div>
-	<div id="outline"></div>
-	<div id="detail"></div>
-	<div><a href="javascript:init();">もう一度ゲームを行う</a></div>
-</div>
-
+        function seikai(){
+            hit = hit+1;
+            localStorage.hit = hit;
+            location.href = "page2.html";
+        }
+        function machigai(){
+            localStorage.hit = hit;
+            location.href = "page2.html";
+        }
+        
+    </script>
 </body>
 </html>
