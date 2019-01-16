@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>問題２</title>
+     <style>
+        body{
+            background-color: darkturquoise;
+        }
+        
+        @media screen and (max-width:480px){
+            body{
+                background-color: deepskyblue;
+            }
+            textarea{
+                width: 90%;
+            }
+            input{
+                width: 80%;
+                font-size: 20px;
+                border: 1px solid #d9d9d9;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <center>
+<div id="page1">
+    <h1>問題２：これは何？</h1>
+    <img src="giphy%20(1).gif">
+    <div><a href="#" onclick="machigai()">トリ</a></div>
+    <div><a href="#" onclick="seikai()">ニワトリ</a></div>
+    
+</div>
+    </center>
+    <script>
+        var hit = Number(localStorage.hit);
+
+        function seikai(){
+            hit = hit+1;
+            localStorage.hit = hit;
+            location.href = "page3.html";
+        }
+        function machigai(){
+            localStorage.hit = hit;
+            location.href = "page3.html";
+        }
+        
+    </script>
+</body>
+</html>

@@ -27,14 +27,13 @@
         }
     </style>
 	<script>
+        
 	//問題の設定
 	var q = [];
-	q[0] =["今日の天気は？","雨","飴","編め",2];
-	q[1] =["HTMLは何という言葉の略ですか？","Hyperlinks and Text Markup Language","Home Tool Markup Language",
-	"Hyper Text Markup Language",3];
-	q[2] =["WEB標準の規格を定めているのはどこでしょうか？","Mozilla","Google","The World Wide Web Consortium",
-	3];
-
+	q[0] =["これは何？","雨","飴","編め",1];
+	q[1] =["これは何？","Hyperlinks and Text Markup Language","Home Tool Markup Language","Hyper Text Markup Language",3];
+	q[2] =["これは何？","Mozilla","Google","The World Wide Web Consortium",3];
+        
 	var count = 0;
 	var hit = 0; //正解の管理
 
@@ -99,10 +98,12 @@ window.addEventListener('load',init);
 </head>
 <body>
 <div id="gamePlay">
+    
 	<h1>クイズ</h1>
-	<div id="mondai"></div>
-	<div id="kaito">
+	<div id="mondai1"></div>
+    <div id="kaito">  
 	<ul id="sentaku"></ul>
+        
 	</div>
 </div>
 
